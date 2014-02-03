@@ -2,7 +2,7 @@
 //  Angara.Net dht22-bmp085-gprs sensor
 //
 //  DHT-22, BMP085, Arduino Uno R3, TinySine SIM900
-//  http://github.com/maxp/rs-gsm
+//  http://github.com/maxp/rs_gsm
 //
 
 // Libraries:
@@ -23,8 +23,7 @@ char VERSION[] = "rs_gsm v0.2";
 #define BASE_URI  "/dat?"
 // #define SECRET    "$$$"
 
-#define INTERVAL    720    // sec
-// #define INTERVAL    20  // !!! remove
+#define INTERVAL    600    // sec
 
 #define APN   ""
 #define USER  ""
@@ -188,11 +187,16 @@ int read_bmp() {
     return 0;
 }
 
+// #include "sms.h"
 
 void gsm_send(int cycle) {
   Serial.print("\ngsm_send: "); Serial.println(cycle);      
 
   gsm.begin(9600);
+  
+  // SMSGSM sms;
+  // sms.SendSMS("+79025118669","test");
+  // sms.SendSMS("7070","GO");
   
   int rc;
   rc = gsm.SendATCmdWaitResp("AT+GSN", 500, 100, "OK", 1);  // == 1
